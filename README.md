@@ -1,5 +1,5 @@
-# DN-Splatter: Depth and Normal Priors for Gaussian Splatting and Meshing
-### <p align="center">[🌐Project Page](https://maturk.github.io/dn-splatter/) | [🖨️ArXiv](https://arxiv.org/abs/2403.17822) </p>
+# AGS-Mesh: Adaptive Gaussian Splatting and Meshing with Geometric Priors for Indoor Room Reconstruction Using Smartphones
+### <p align="center">[🌐Project Page](https://github.com/XuqianRen/ags_mesh_website) | [🖨️ArXiv]() </p>
 
 This branch (`gh-pages`) contains the source code for the website (and is based on [Nerfies](https://nerfies.github.io)).
 
