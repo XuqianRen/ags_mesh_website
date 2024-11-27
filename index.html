@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-127PQSMYY6"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-127PQSMYY6');
+    </script>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="Gaussian splatting,indoor reconstruction,prior regularization">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AGS-Mesh: Adaptive Gaussian Splatting and Meshing with Geometric Priors for Indoor Room Reconstruction Using
+        Smartphones</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+    <link href="static/css/twentytwenty.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="./static/css/bulma.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="./static/css/index.css">
+    <link rel="icon" href="./static/images/favicon.svg">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="./static/js/fontawesome.all.min.js"></script>
+    <script src="./static/js/bulma-carousel.min.js"></script>
+    <script src="./static/js/bulma-slider.min.js"></script>
+    <script src="./static/js/index.js"></script>
+    <meta property="og:url" content="https://maturk.github.io/dn-splatter/" />
+    <meta property="og:title" content="AGS-Mesh" />
+    <meta property="og:description"
+        content="IPhone captured Depth and pretrain normal supervision improves 3DGS novel-view synthesis and mesh reconstruction." />
+    <meta property="og:image" content="https://maturk.github.io/dn-splatter/static/images/some-preview.png" />
+
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.2.0/model-viewer.min.js"></script>
+</head>
+
+<body>
+
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+        <div class="navbar-menu">
+            <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">
+                        More Research
+                    </a>
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item" href="https://maturk.github.io/dn-splatter/">
+                            DN-Splatter
+                        </a>
+                        <a class="navbar-item" href="https://xuqianren.github.io/publications/MuSHRoom/">
+                            MuSHRoom
+                        </a>
+                        <a class="navbar-item" href="https://spectacularai.github.io/3dgs-deblur/">
+                            3DGS-deblur
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-body">
+            <div class="container is-max-desktop">
+                <div class="columns is-centered">
+                    <div class="column has-text-centered">
+                        <h1 class="title is-1 publication-title"><strong>AGS-Mesh</strong>: Adaptive Gaussian Splatting
+                            and Meshing with Geometric Priors for Indoor Room Reconstruction Using Smartphones</h1>
+                        <h3 class="title is-3 publication-title"><strong>3DV 2025</strong></h3>
+                        <div class="is-size-5 publication-authors">
+                            <span class="author-block">
+                                <a href="https://xuqianren.github.io">Xuqian Ren</a><sup>1</sup>,</span>
+                            <span class="author-block">
+                                <a href="https://maturk.github.io">Matias Turkulainen</a><sup>2</sup>,</span>
+                            <span class="author-block">
+                                <a href="https://jiepengwang.github.io">Jiepeng Wang</a><sup>3</sup>,</span>
+                            <span class="author-block">
+                                <a href="https://oseiskar.github.io">Otto Seiskari</a><sup>4</sup>,
+                            </span>
+                            <span class="author-block">
+                                <a href="https://imelekhov.com">Iaroslav Melekhov</a><sup>2</sup>,
+                            </span>
+                            <span class="author-block">
+                                <a href="https://users.aalto.fi/~kannalj1/">Juho Kannala</a><sup>2,5</sup>,
+                            </span>
+                            <span class="author-block">
+                                <a href="https://esa.rahtu.fi">Esa Rahtu</a><sup>1</sup>
+                            </span>
+
+                        </div>
+
+                        <div class="is-size-5 publication-authors">
+                            <span class="author-block"><sup>1</sup>Tampere University,</span>
+                            <span class="author-block"><sup>2</sup>Aalto University,</span>
+                            <span class="author-block"><sup>3</sup>University of Hong Kong,</span>
+                            <span class="author-block"><sup>4</sup>Spectacular AI,</span>
+                            <span class="author-block"><sup>5</sup>University of Oulu</span>
+                        </div>
+
+                        <div class="column has-text-centered">
+                            <div class="publication-links">
+                                <!-- PDF Link. -->
+                                <span class="link-block">
+                                    <a href="" class="external-link button is-normal is-rounded is-dark">
+                                        <span class="icon">
+                                            <i class="ai ai-arxiv"></i>
+                                        </span>
+                                        <span>arXiv</span>
+                                    </a>
+                                </span>
+                                <!-- Code Link. -->
+                                <span class="link-block">
+                                    <a href="https://github.com/maturk/dn-splatter"
+                                        class="external-link button is-normal is-rounded is-dark">
+                                        <span class="icon">
+                                            <i class="fab fa-github"></i>
+                                        </span>
+                                        <span>Code</span>
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="hero is-light is-small">
+        <div class="container hero-body">
+            <div class="columns is-centered"
+                style="display: flex; justify-content: center; flex-wrap: wrap; width: 800px; margin: 0px auto; gap: 0px;">
+                <!-- 第一列 -->
+                <div class="column has-text-centered" style="padding: 5px;">
+                    <img src="static/images/teaser/final_3dgs.jpg" style="width: 100%; display: block; margin: 0 auto;">
+                    <p class="subtitle is-6" style="margin-top: 5px;">3DGS</p>
+                </div>
+
+                <!-- 第二列 -->
+                <div class="column has-text-centered" style="padding: 5px;">
+                    <img src="static/images/teaser/final_2dgs.jpg" style="width: 100%; display: block; margin: 0 auto;">
+                    <p class="subtitle is-6" style="margin-top: 5px;">2DGS</p>
+                </div>
+
+                <!-- 第三列 -->
+                <div class="column has-text-centered" style="padding: 5px;">
+                    <img src="static/images/teaser/final_dn.jpg" style="width: 100%; display: block; margin: 0 auto;">
+                    <p class="subtitle is-6" style="margin-top: 5px;">DN-Splatter</p>
+                </div>
+
+                <!-- 第四列 -->
+                <div class="column has-text-centered" style="padding: 5px;">
+                    <img src="static/images/teaser/final_our.jpg" style="width: 100%; display: block; margin: 0 auto;">
+                    <p class="subtitle is-6" style="margin-top: 5px;">2DGS + Ours</p>
+                </div>
+
+                <!-- 第五列 -->
+                <div class="column has-text-centered" style="padding: 5px;">
+                    <img src="static/images/teaser/final_gt.jpg" style="width: 100%; display: block; margin: 0 auto;">
+                    <p class="subtitle is-6" style="margin-top: 5px;">Reference mesh</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+    <section class="section">
+        <div class="container is-max-desktop">
+            <!-- Abstract. -->
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-four-fifths">
+                    <h2 class="title is-3">Abstract</h2>
+                    <div class="content has-text-justified">
+                        <p>
+                            Geometric priors are often used to enhance 3D reconstruction. With many smartphones
+                            featuring low-resolution depth sensors and the prevalence of off-the-shelf monocular
+                            geometry estimators,incorporating geometric priors as regularization signals has become
+                            common in 3D vision
+                            tasks. However, the accuracy of depth estimates from mobile devices is typically poor for
+                            highly detailed geometry, and monocular estimators often suffer from poor multi-view
+                            consistency and precision. In
+                            this work, we propose an approach for joint surface depth and normal refinement of Gaussian
+                            Splatting methods for accurate 3D reconstruction of indoor scenes. We develop supervision
+                            strategies that
+                            adaptively filters low-quality depth and normal estimates by comparing the consistency of
+                            the priors during optimization. We mitigate regularization in regions where prior estimates
+                            have high uncertainty or ambiguities. Our filtering strategy and optimization design
+                            demonstrate significant improvements in both mesh estimation and novel-view synthesis for
+                            both 3D and 2D Gaussian Splatting-based methods on challenging indoor room datasets.
+                            Furthermore, we explore the use of alternative meshing strategies for finer geometry
+                            extraction. We develop a scale-aware meshing strategy inspired by TSDF and octree-based
+                            isosurface extraction, which recovers finer details from Gaussian models compared to other
+                            commonly used open-source meshing tools. Our code will be released
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+            <!--/ Abstract. -->
+            <!-- Overview. -->
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-four-fifths">
+                    <h2 class="title is-4"></h2>
+                    <img src="static/images/pipeline_ags_mesh.png" alt="Interpolate start reference image." />
+                    <p><strong>Overview: </strong>We present AGS-Mesh, a method that adaptively integrates geometric
+                        priors into Gaussian Splatting for indoor room reconstruction
+                        using a mobile device.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+
+    <section class="section">
+        <div class="container hero-body">
+            <div class="column has-text-centered">
+                <h2 class="title is-3">More Visuals</h2>
+            </div>
+            <!--RGB/Depths/Normals-->
+            <p><strong>Sensor depth and normal filter</strong></p>
+            <div class="columns is-centered is-gapless">
+                <div class="column is-one-third has-text-centered">
+                    <div class="twentytwenty-container twentytwenty-custom">
+                        <img src="static/images/filter/frame_00064.jpeg" alt="RGB image">
+                    </div>
+                </div>
+
+                <div class="column is-one-third has-text-centered">
+                    <div class="twentytwenty-container twentytwenty-custom">
+                        <img src="static/images/filter/depth4.jpg" alt="Sensor depth">
+                        <img src="static/images/filter/depth_filter4.jpg" alt="Filtered depth">
+                    </div>
+                </div>
+
+                <div class="column is-one-third has-text-centered">
+                    <div class="twentytwenty-container twentytwenty-custom">
+                        <img src="static/images/filter/gt_normal4.jpg" alt="Pretrained normal">
+                        <img src="static/images/filter/prefilter_normal4.jpg" alt="Filtered normal">
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="columns is-centered is-gapless">
+                <div class="column is-one-third has-text-centered">
+                    <div class="twentytwenty-container twentytwenty-custom">
+                        <img src="static/images/filter/frame_00418.jpeg" alt="RGB image">
+                    </div>
+                </div>
+
+                <div class="column is-one-third has-text-centered">
+                    <div class="twentytwenty-container twentytwenty-custom">
+                        <img src="static/images/filter/depth6.jpg" alt="Sensor depth">
+                        <img src="static/images/filter/depth_filter6.jpg" alt="Filtered depth">
+                    </div>
+                </div>
+
+                <div class="column is-one-third has-text-centered">
+                    <div class="twentytwenty-container twentytwenty-custom">
+                        <img src="static/images/filter/gt_normal6.jpg" alt="Pretrained normal">
+                        <img src="static/images/filter/prefilter_normal6.jpg" alt="Filtered normal">
+                    </div>
+                </div>
+            </div>
+
+            <!--End RGB/Depths/Normal-->
+            <!--Meshes-->
+            <p><strong>Mesh comparison:</strong></p>
+            <div class="columns is-centered is-gapless">
+                <div class="column is-one-third has-text-centered">
+                    <div class="twentytwenty-container twentytwenty-custom">
+                        <img src="static/images/mesh/honka_gt.jpg" alt="Reference Mesh">
+                    </div>
+                </div>
+
+                <div class="column is-one-third has-text-centered">
+                    <div class="twentytwenty-container twentytwenty-custom">
+                        <img src="static/images/mesh/honka_splatfacto.jpg" alt="Splatfacto">
+                        <img src="static/images/mesh/honka_dnsplatterpp.jpg" alt="Splatfacto + Ours">
+                    </div>
+                </div>
+
+                <div class="column is-one-third has-text-centered">
+                    <div class="twentytwenty-container twentytwenty-custom">
+                        <img src="static/images/mesh/honka_2dgs.jpg" alt="2DGS">
+                        <img src="static/images/mesh/honka_2dgs_our.jpg" alt="2DGS + Ours">
+                    </div>
+                </div>
+            </div>
+
+            <div class="columns is-centered is-gapless">
+                <div class="column is-one-third has-text-centered">
+                    <div class="twentytwenty-container twentytwenty-custom">
+                        <img src="static/images/mesh/gt_mesh2.jpg" alt="Reference Mesh">
+                    </div>
+                </div>
+
+                <div class="column is-one-third has-text-centered">
+                    <div class="twentytwenty-container twentytwenty-custom">
+                        <img src="static/images/mesh/splatfacto_mesh2.jpg" alt="Splatfacto">
+                        <img src="static/images/mesh/splatfacto_our_mesh2.jpg" alt="Splatfacto + Ours">
+                    </div>
+                </div>
+
+                <div class="column is-one-third has-text-centered">
+                    <div class="twentytwenty-container twentytwenty-custom">
+                        <img src="static/images/mesh/2dgs_mesh2.jpg" alt="2DGS">
+                        <img src="static/images/mesh/2dgs_our_mesh2.jpg" alt="2DGS + Ours">
+                    </div>
+                </div>
+            </div>
+
+
+            <!--End Normals-->
+            <!--NVS row 1-->
+            <p><strong>Novel view synthesis on real-world indoor scenes: </strong>MuSHRoom dataset with iPhone data.</p>
+            <div class="columns is-multiline is-centered">
+                <div class="column is-one-quarter-desktop has-text-centered">
+                    <div class="column is-one-quarter-desktop has-text-centered">
+                        <div class="twentytwenty-container twentytwenty-custom">
+                            <img src="static/images/NVS/kokko_2dgs.png" alt="2DGS">
+                            <img src="static/images/NVS/kokko_2dgs_ours.png" alt="2DGS + Ours">
+                            <img src="static/images/NVS/kokko_gt.png" alt="GT">
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-one-quarter-desktop has-text-centered">
+                    <div class="column is-one-quarter-desktop has-text-centered">
+                        <div class="twentytwenty-container twentytwenty-custom">
+                            <img src="static/images/NVS/kokko2_2dgs.png" alt="2DGS">
+                            <img src="static/images/NVS/kokko2_2dgs_ours.png" alt="2DGS + Ours">
+                            <img src="static/images/NVS/kokko2_gt.png" alt="GT">
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-one-quarter-desktop has-text-centered">
+                    <div class="column is-one-quarter-desktop has-text-centered">
+                        <div class="twentytwenty-container twentytwenty-custom">
+                            <img src="static/images/NVS/honka_2dgs.png" alt="2DGS">
+                            <img src="static/images/NVS/honka_2dgs_ours.png" alt="2DGS + Ours">
+                            <img src="static/images/NVS/honka_gt.png" alt="GT">
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-one-quarter-desktop has-text-centered">
+                    <div class="column is-one-quarter-desktop has-text-centered">
+                        <div class="twentytwenty-container twentytwenty-custom">
+                            <img src="static/images/NVS/computer_2dgs.png" alt="2DGS">
+                            <img src="static/images/NVS/computer_2dgs_ours.png" alt="2DGS + Ours">
+                            <img src="static/images/NVS/computer_gt.png" alt="GT">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!--End meshes row 1-->
+
+        </div>
+    </section>
+
+
+    <section class="section">
+        <div class="container hero-body">
+            <!--Mesh Comparisons-->
+            <div class="column has-text-centered">
+                <h2 class="title is-3">Mesh Comparisons</h2>
+                <p>Reconstruction on the 8b5caf3398 scene from Scannet++ dataset</p>
+            </div>
+            <div class="container">
+                <div class="container"
+                    style="display: flex; justify-content: center; flex-wrap: wrap; width: 800px; height: 400px;">
+                    <div class="column has-text-centered" style="flex: 1; width: 800px">
+                        <p>2DGS</p>
+                        <model-viewer alt="honka Mesh" src="static/images/meshes/2dgs.glb"
+                            style="width: 100%; height: 100%;" camera-controls camera-orbit="0deg 180deg 1m"
+                            field-of-view="30deg" shadow-intensity="1" exposure="1"
+                            environment-image="static/images/bridge.hdr" environment-blur="1">
+                            <div slot="lighting">
+                                <div point-light="intensity: 3; position: 0 3 5; color: #ffffff;"></div>
+                            </div>
+                        </model-viewer>
+                    </div>
+                    <div class="column has-text-centered" style="flex: 1; width: 800px">
+                        <p><strong>AGS-Mesh</strong></p>
+                        <model-viewer alt="honka Mesh" src="static/images/meshes/output.glb"
+                            style="width: 100%; height: 100%;" camera-controls camera-orbit="0deg 180deg 1m"
+                            field-of-view="30deg" shadow-intensity="1" exposure="1"
+                            environment-image="static/images/bridge.hdr" environment-blur="1">
+                            <div slot="lighting">
+                                <div point-light="intensity: 3; position: 0 3 5; color: #ffffff;"></div>
+                            </div>
+                        </model-viewer>
+                    </div>
+                </div>
+            </div>
+            <!--End mesh comparisons-->
+        </div>
+    </section>
+
+
+
+
+
+
+    <section class="section" id="BibTeX">
+        <div class="container is-max-desktop content">
+            <h2 class="title">BibTeX</h2>
+            <pre><code>@misc{ags_mesh,
+        title={AGS-Mesh: Adaptive Gaussian Splatting and Meshing with Geometric Priors for Indoor Room Reconstruction Using Smartphones}, 
+        author={Xuqian Ren and Matias Turkulainen and Jiepeng Wang and Otto Seiskari and Iaroslav Melekhov and Juho Kannala and Esa Rahtu},
+        year={2024},
+        eprint={},
+        archivePrefix={arXiv},
+        primaryClass={cs.CV}
+}</code></pre>
+        </div>
+    </section>
+
+
+    <footer class="footer">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-8">
+                    <div class="content has-text-centered">
+                        <p>
+                            This website is licensed under a <a rel="license"
+                                href="http://creativecommons.org/licenses/by-sa/4.0/">CC
+                                BY-SA 4.0</a>
+                            and is based on the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> site.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="static/css/bootstrap.min.js"></script>
+    <!-- <script src="/js/offcanvas.js"></script> -->
+    <script src="static/css/jquery.event.move.js"></script>
+    <script src="static/css/jquery.twentytwenty.js"></script>
+
+    <script>
+        $(window).load(function () { $(".twentytwenty-container").twentytwenty({ default_offset_pct: 0.5 }); });
+    </script>
+</body>
+
+</html>
+
+</body>
+
+</html>
